@@ -13,6 +13,16 @@
     });
   }
 
+  var heroSlides = document.querySelectorAll('.hero-bg-slide');
+  if(heroSlides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var heroIndex = 0;
+    setInterval(function(){
+      heroSlides[heroIndex].classList.remove('is-active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('is-active');
+    }, 6000);
+  }
+
   var revealSelectors = '.card, .info-cell, .step, .official-item, .coverage-visual, .pdf-frame-wrap, .form-card, .status-panel, .faq-item, .contact-box';
   var revealEls = document.querySelectorAll(revealSelectors);
   revealEls.forEach(function(el){ el.classList.add('reveal'); });
