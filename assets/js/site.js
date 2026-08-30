@@ -14,12 +14,19 @@
   }
 
   var heroSlides = document.querySelectorAll('.hero-bg-slide');
-  if(heroSlides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  if(heroSlides.length > 1){
+    var heroReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var heroIndex = 0;
     setInterval(function(){
-      heroSlides[heroIndex].classList.remove('is-active');
+      var prevSlide = heroSlides[heroIndex];
       heroIndex = (heroIndex + 1) % heroSlides.length;
-      heroSlides[heroIndex].classList.add('is-active');
+      var nextSlide = heroSlides[heroIndex];
+      if(heroReduceMotion){
+        prevSlide.style.transitionDuration = '0s';
+        nextSlide.style.transitionDuration = '0s';
+      }
+      prevSlide.classList.remove('is-active');
+      nextSlide.classList.add('is-active');
     }, 6000);
   }
 
